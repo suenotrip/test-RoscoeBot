@@ -35,6 +35,7 @@ def webhook():
 
                 if messaging_event.get("message"):  # someone sent us a message
 
+
                     sender_id = messaging_event["sender"]["id"]        # the facebook ID of the person sending you the message
                     recipient_id = messaging_event["recipient"]["id"]  # the recipient's ID, which should be your page's facebook ID
                     message_text = messaging_event["message"]["text"]  # the message's text
@@ -48,7 +49,30 @@ def webhook():
                     pass
 
                 if messaging_event.get("postback"):  # user clicked/tapped "postback" button in earlier message
-                    pass
+                    
+                    payload = messaging_event["postback"]["payload"]
+                    if (payload=="START"):
+
+                        sender_id = messaging_event["sender"]["id"]        # the facebook ID of the person sending you the message
+                        recipient_id = messaging_event["recipient"]["id"]  # the recipient's ID, which should be your page's facebook ID
+                        #message_text = messaging_event["message"]["text"]  # the message's text
+
+                        #fetch first name from FB graph
+                        access_token='EAAS7TZAqQM7UBAKeTGRXC8KNtUyBWE55nSCZAumZCEg2dZASkAUQdNhZCDAd7Ni7oZBOlaTHSGOdQ3BVV5vLLvDHJHZAnwTuIZBbBrXLiSHLJKRLza21deZAezRVZArrUZBT5R9PC3Eq7qrZBrpcxaI0ZAHIGr8FhcEs7qD4RxSXLhWrkvAZDZD'
+                        r = requests.get("https://graph.facebook.com/v2.6/"+ sender_id + "?access_token="+access_token)
+                        if r.status_code != 200:
+                            log(r.status_code)
+                            log(r.text)
+                        else:
+                            print(r.status_code)
+                            print(r.text)
+                            profile=json.loads(r.text)
+                            first_name=profile['first_name']
+                            #print(profile)
+                            #print(first_name)
+                            
+                            send_message(sender_id, "Hi "+ first_name+ ", what would you like to do tonight?")
+                            #pass
 
     return "ok", 200
 
