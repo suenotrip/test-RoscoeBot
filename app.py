@@ -58,7 +58,8 @@ def webhook():
                         #message_text = messaging_event["message"]["text"]  # the message's text
 
                         #fetch first name from FB graph
-                        access_token='EAAS7TZAqQM7UBAKeTGRXC8KNtUyBWE55nSCZAumZCEg2dZASkAUQdNhZCDAd7Ni7oZBOlaTHSGOdQ3BVV5vLLvDHJHZAnwTuIZBbBrXLiSHLJKRLza21deZAezRVZArrUZBT5R9PC3Eq7qrZBrpcxaI0ZAHIGr8FhcEs7qD4RxSXLhWrkvAZDZD'
+                        access_token=os.environ["PAGE_ACCESS_TOKEN"]
+                        #access_token='EAAS7TZAqQM7UBAKeTGRXC8KNtUyBWE55nSCZAumZCEg2dZASkAUQdNhZCDAd7Ni7oZBOlaTHSGOdQ3BVV5vLLvDHJHZAnwTuIZBbBrXLiSHLJKRLza21deZAezRVZArrUZBT5R9PC3Eq7qrZBrpcxaI0ZAHIGr8FhcEs7qD4RxSXLhWrkvAZDZD'
                         r = requests.get("https://graph.facebook.com/v2.6/"+ sender_id + "?access_token="+access_token)
                         if r.status_code != 200:
                             log(r.status_code)
@@ -82,8 +83,8 @@ def send_message(recipient_id, message_text):
     log("sending message to {recipient}: {text}".format(recipient=recipient_id, text=message_text))
 
     params = {
-        "access_token":'EAAS7TZAqQM7UBAKeTGRXC8KNtUyBWE55nSCZAumZCEg2dZASkAUQdNhZCDAd7Ni7oZBOlaTHSGOdQ3BVV5vLLvDHJHZAnwTuIZBbBrXLiSHLJKRLza21deZAezRVZArrUZBT5R9PC3Eq7qrZBrpcxaI0ZAHIGr8FhcEs7qD4RxSXLhWrkvAZDZD'
-        #"access_token": os.environ["PAGE_ACCESS_TOKEN"] || 'EAAS7TZAqQM7UBAKeTGRXC8KNtUyBWE55nSCZAumZCEg2dZASkAUQdNhZCDAd7Ni7oZBOlaTHSGOdQ3BVV5vLLvDHJHZAnwTuIZBbBrXLiSHLJKRLza21deZAezRVZArrUZBT5R9PC3Eq7qrZBrpcxaI0ZAHIGr8FhcEs7qD4RxSXLhWrkvAZDZD'
+        #"access_token":'EAAS7TZAqQM7UBAKeTGRXC8KNtUyBWE55nSCZAumZCEg2dZASkAUQdNhZCDAd7Ni7oZBOlaTHSGOdQ3BVV5vLLvDHJHZAnwTuIZBbBrXLiSHLJKRLza21deZAezRVZArrUZBT5R9PC3Eq7qrZBrpcxaI0ZAHIGr8FhcEs7qD4RxSXLhWrkvAZDZD'
+        "access_token": os.environ["PAGE_ACCESS_TOKEN"] #|| 'EAAS7TZAqQM7UBAKeTGRXC8KNtUyBWE55nSCZAumZCEg2dZASkAUQdNhZCDAd7Ni7oZBOlaTHSGOdQ3BVV5vLLvDHJHZAnwTuIZBbBrXLiSHLJKRLza21deZAezRVZArrUZBT5R9PC3Eq7qrZBrpcxaI0ZAHIGr8FhcEs7qD4RxSXLhWrkvAZDZD'
     }
     headers = {
         "Content-Type": "application/json"
